@@ -1,0 +1,31 @@
+%GA
+%guess 5-digit number
+%isid92654
+
+NUM_OF_DIGITS = 5;
+pop_size = 8;
+
+num_min = 0;
+num_max = 9;
+
+score_matrix = zeros(1, pop_size);
+value_matrix = zeros(pop_size, NUM_OF_DIGITS);
+
+%fill in the value_matrix
+for r = 1:pop_size
+    for c = 1:NUM_OF_DIGITS
+        value_matrix(r,c) = round(rand() * (num_max - num_min + 1) + num_min);
+    end
+end
+
+%set random number as searched number
+searched_number = set_searched_vec(NUM_OF_DIGITSm num_max, num_min);
+
+
+function searched = set_searched_vec(digits, smax, smin)
+    searched = zeros(1,digits);
+    
+    for i = 1:digits
+        searched(i) = round(rand() * (num_max - num_min + 1) + num_min);
+    end
+end
