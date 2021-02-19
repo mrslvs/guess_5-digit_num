@@ -14,9 +14,13 @@ searched_number = set_searched_vec(NUM_OF_DIGITS, num_max, num_min);
 %create population
 generation_matrix = set_population(NUM_OF_DIGITS, num_max, num_min, pop_size);
 
+score_matrix = evaluation(generation_matrix, searched_number, NUM_OF_DIGITS, pop_size);
+
 function score_matrix = evaluation(generation, searched, digits, pop_size)
+    score_matrix = zeros(1, pop_size);
+    
     for individual = 1:pop_size
-        score_matrix(individual) = evaluate(generation(individual), searched, digits);
+        score_matrix(individual) = evaluate(generation(individual,:), searched, digits);
     end
 end
 
