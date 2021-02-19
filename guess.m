@@ -18,6 +18,7 @@ population_matrix = zeros(pop_size, NUM_OF_DIGITS);
 generation_matrix = set_population(NUM_OF_DIGITS, num_max, num_min, pop_size);
 
 function searched = set_searched_vec(digits, smax, smin)
+%returns random number which will be searched for
     searched = zeros(1,digits);
     
     for i = 1:digits
@@ -26,15 +27,17 @@ function searched = set_searched_vec(digits, smax, smin)
 end
 
 function pop_matrix = set_population(digits, smax, smin, pop_size)
+%returns random population in matrix
     pop_matrix = zeros(pop_size, digits);
     
     for individ = 1:pop_size
         for digit = 1:digits
             pop_matrix(individ, digit) = get_random_digit(smax, smin);
         end
-    end
+    end    
 end
 
 function digit = get_random_digit(smax, smin)
+%returns random digit from interval <0,9>
     digit = round(rand() * (smax - smin + 1) + smin);
 end
