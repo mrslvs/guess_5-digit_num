@@ -24,6 +24,10 @@ function searched = set_searched_vec(digits, smax, smin)
     for i = 1:digits
         searched(i) = get_random_digit(smax, smin);
     end
+    
+    while searched(1) == 0
+        searched(1) = get_random_digit(smax, smin);
+    end
 end
 
 function pop_matrix = set_population(digits, smax, smin, pop_size)
@@ -33,8 +37,15 @@ function pop_matrix = set_population(digits, smax, smin, pop_size)
     for individ = 1:pop_size
         for digit = 1:digits
             pop_matrix(individ, digit) = get_random_digit(smax, smin);
+            
+            if digit == 1
+                while pop_matrix(individ, digit) == 0
+                    pop_matrix(individ, digit) = get_random_digit(smax, smin);
+                end
+            end
         end
     end    
+    
 end
 
 function digit = get_random_digit(smax, smin)
