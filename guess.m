@@ -15,13 +15,34 @@ num_of_best_ones = 2; %take X best numbers into next generations
 searched_number = set_searched_vec(num_of_digits, digit_max, digit_min);
 
 %create population
-generation_matrix = set_population(num_of_digits, digit_max, digit_min, pop_size);
+population_matrix = set_population(num_of_digits, digit_max, digit_min, pop_size);
 
 %evaluate
-score_vector = evaluation(generation_matrix, searched_number, num_of_digits, pop_size);
+score_vector = evaluation(population_matrix, searched_number, num_of_digits, pop_size);
 
 %get positions of best
-best_pos_vec = get_best_positions(score_vector, num_of_best_ones)
+best_pos_vec = get_best_positions(score_vector, num_of_best_ones);
+
+%create new generation
+new_generation = evolve_new_generation(population_matrix, best_pos_vec, num_of_best_ones, num_of_digits);
+
+
+function new_gen_matrix = evolve_new_generation(population, best_pos, num_of_best_ones, digits)
+    new_gen_matrix = zeros(num_of_best_ones, digits);
+    
+    %new_gen_matrix = get_individual(population, digits, best_pos(1));
+    
+    for i=1:num_of_best_ones
+        new_gen_matrix(i,:) = get_individual(population, digits, best_pos(i));
+    end
+end
+
+function individ = get_individual(population, digits, position)
+    individ = zeros(digits);
+    for digit = 1:digits
+        individ(digit) = population(position,digit);
+    end
+end
 
 function best_ones_pos_vec = get_best_positions(score_vector, num_of_best_ones)
     if sum(score_vector) == 0
