@@ -38,7 +38,7 @@ function new_gen_matrix = evolve_new_generation(population, best_pos, num_of_bes
 end
 
 function individ = get_individual(population, digits, position)
-    individ = zeros(digits);
+    individ = zeros(1,digits);
     for digit = 1:digits
         individ(digit) = population(position,digit);
     end
