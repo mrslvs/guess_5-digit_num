@@ -2,22 +2,40 @@
 %guess 5-digit number
 %isid92654
 
-NUM_OF_DIGITS = 5;
-pop_size = 8;
+%generate random numbers <0,9> using these variables 
+digit_min = 0;
+digit_max = 8;    %+1
+num_of_digits = 5;  %select size of numbers
 
-num_min = 0;
-num_max = 8; %+1
+%genetic algorithm variables
+pop_size = 8; %size of population
+num_of_best_ones = 2; %take X best numbers into next generations
 
 %set random number as searched number
-searched_number = set_searched_vec(NUM_OF_DIGITS, num_max, num_min);
+searched_number = set_searched_vec(num_of_digits, digit_max, digit_min);
 
 %create population
-generation_matrix = set_population(NUM_OF_DIGITS, num_max, num_min, pop_size);
+generation_matrix = set_population(num_of_digits, digit_max, digit_min, pop_size);
 
 %evaluate
-score_vector = evaluation(generation_matrix, searched_number, NUM_OF_DIGITS, pop_size);
+score_vector = evaluation(generation_matrix, searched_number, num_of_digits, pop_size);
 
+%get positions of best
+best_pos_vec = get_best_positions(score_vector, num_of_best_ones)
 
+function best_ones_pos_vec = get_best_positions(score_vector, num_of_best_ones)
+    if sum(score_vector) == 0
+        %return 2 random
+    end
+    
+    best_ones_pos_vec = [];
+    
+    for i=1:num_of_best_ones
+        [m,max_index] = max(score_vector);
+        best_ones_pos_vec(i) = max_index;
+        score_vector(max_index) = 0; %after saving the position, change score to 0
+    end
+end
 
 function score_vector = evaluation(generation, searched, digits, pop_size)
 %calls function evaluate on each individual in current generation
