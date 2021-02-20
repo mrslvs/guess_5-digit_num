@@ -14,10 +14,7 @@ searched_number = set_searched_vec(NUM_OF_DIGITS, num_max, num_min);
 %create population
 generation_matrix = set_population(NUM_OF_DIGITS, num_max, num_min, pop_size);
 
-%evaluate
 score_vector = evaluation(generation_matrix, searched_number, NUM_OF_DIGITS, pop_size);
-
-
 
 function score_vector = evaluation(generation, searched, digits, pop_size)
 %calls function evaluate on each individual in current generation
@@ -30,7 +27,7 @@ function score_vector = evaluation(generation, searched, digits, pop_size)
 end
 
 function score = evaluate(individual, searched, digits)
-%if digits match, give 1 score point
+%if digits mat
     score = 0;
     
     for gene = 1:digits
